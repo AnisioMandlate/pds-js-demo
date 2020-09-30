@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css" />
+    <title>PaymentsDS JavaScript Demo</title>
+  </head>
+  <body>
+    <div class="container">
+      <form method="POST" action="/data">
+        <fieldset>
+          <legend>
+            <h2>PaymentsDS JavaScript Demo</h2>
+          </legend>
+          <div class="field-group">
+            <div class="field">
+              <label for="celular">Celular No.</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="celular"
+                name="celular"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="valor">Valor a pagar</label>
+              <input
+                type="number"
+                class="form-control"
+                id="valor"
+                name="valor"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="valor">Referência No.</label>
+              <input
+                type="number"
+                class="form-control"
+                id="reference"
+                name="reference"
+                required
+              />
+            </div>
+          </div>
+          <button type="submit">Pagamento</button>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,14 +1,16 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const { Client } = require("@paymentsds/mpesa");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!!");
+  res.sendFile(path.join(__dirname + "/public/views/index.html"));
 });
 
 const client = new Client({
@@ -36,7 +38,7 @@ app.post("/data", (req, res) => {
     });
 });
 
-const PORT = 3000;
+const PORT = 8000;
 
 app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
