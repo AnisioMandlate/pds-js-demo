@@ -9,6 +9,7 @@
 }
 
 fieldset {
+  width: 100%;
   padding: 8px 36px;
   border: 0;
 }
@@ -47,6 +48,7 @@ input {
 }
 
 button {
+  width: 100% !important;
   margin: 0 36px !important;
   width: 260px;
   height: 65px;
