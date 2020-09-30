@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")));
 
-app.get("/", (req, res) => {
+app.get("/data", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/views/index.html"));
 });
 
@@ -21,6 +21,12 @@ const client = new Client({
 });
 
 app.post("/data", (req, res) => {
+  const celular = req.body.celular;
+  const amount = req.body.valor;
+
+  console.log("Data: " + celular, amount);
+
+  /**
   const paymentData = {
     from: "845276993", // input_CustomerMSISDN
     reference: `114${Math.floor(Math.random() * 100)}`, // input_ThirdPartyReference
@@ -36,6 +42,7 @@ app.post("/data", (req, res) => {
     .catch((e) => {
       console.error(e.message);
     });
+    */
 });
 
 const PORT = 8000;

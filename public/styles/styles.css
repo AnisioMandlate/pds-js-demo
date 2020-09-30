@@ -10,7 +10,7 @@
 
 fieldset {
   padding: 8px 36px;
-  border: 1px solid #f5f5f0;
+  border: 0;
 }
 
 fieldset > legend {
@@ -47,6 +47,7 @@ input {
 }
 
 button {
+  margin: 0 36px !important;
   width: 260px;
   height: 65px;
   background-color: #2cad8f;
