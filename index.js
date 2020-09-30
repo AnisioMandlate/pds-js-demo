@@ -7,6 +7,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("/data", (req, res) => {
@@ -23,15 +24,15 @@ const client = new Client({
 app.post("/data", (req, res) => {
   const celular = req.body.celular;
   const amount = req.body.valor;
+  const reference = req.body.reference;
 
-  console.log("Data: " + celular, amount);
+  // console.log("Data: " + celular, amount);
 
-  /**
   const paymentData = {
-    from: "845276993", // input_CustomerMSISDN
-    reference: `114${Math.floor(Math.random() * 100)}`, // input_ThirdPartyReference
+    from: celular, // input_CustomerMSISDN
+    reference: `2AM${reference}`, // input_ThirdPartyReference
     transaction: "T12344CC", // input_TransactionReference
-    amount: "10", // input_Amount
+    amount: amount, // input_Amount
   };
 
   client
@@ -42,7 +43,6 @@ app.post("/data", (req, res) => {
     .catch((e) => {
       console.error(e.message);
     });
-    */
 });
 
 const PORT = 8000;
