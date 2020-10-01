@@ -25,8 +25,6 @@ app.post("/data", (req, res) => {
   const amount = req.body.valor;
   const reference = req.body.reference;
 
-  // console.log("Data: " + celular, amount);
-
   const paymentData = {
     from: celular, // input_CustomerMSISDN
     reference: `2AM${reference}`, // input_ThirdPartyReference
