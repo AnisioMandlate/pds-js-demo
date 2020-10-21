@@ -8,11 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "/public")));
-
-app.get("/data", (req, res) => {
-  res.sendFile(path.join(__dirname + "/public/views/index.html"));
-});
 
 const client = new Client({
   apiKey: process.env.API_KEY, // API Key
@@ -20,7 +15,7 @@ const client = new Client({
   serviceProviderCode: process.env.SERVICE_PROVIDER_CODE, // input_ServiceProviderCode
 });
 
-app.post("/data", (req, res) => {
+app.post("/", (req, res) => {
   const celular = req.body.celular;
   const amount = req.body.valor;
   const reference = req.body.reference;
@@ -41,6 +36,15 @@ app.post("/data", (req, res) => {
       console.error(e.message);
     });
 });
+
+if (process.env.NODE_ENV === "production") {
+  /** Set the static folder */
+
+  app.use(express.static("public"));
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "public", "views", "index.html"))
+  );
+}
 
 const PORT = process.env.PORT || 8000;
 
