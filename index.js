@@ -2,12 +2,18 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { Client } = require("@paymentsds/mpesa");
+const { json } = require("express");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "/public")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + "/public/views/index.html"));
+});
 
 const client = new Client({
   apiKey: process.env.API_KEY, // API Key
@@ -15,7 +21,7 @@ const client = new Client({
   serviceProviderCode: process.env.SERVICE_PROVIDER_CODE, // input_ServiceProviderCode
 });
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
   const celular = req.body.celular;
   const amount = req.body.valor;
   const reference = req.body.reference;
@@ -27,10 +33,10 @@ app.post("/", (req, res) => {
     amount: amount, // input_Amount
   };
 
-  client
+  await client
     .receive(paymentData)
     .then((r) => {
-      console.log("Success: ", r);
+      res.status(201).json(r);
     })
     .catch((e) => {
       console.error(e.message);
@@ -46,7 +52,7 @@ if (process.env.NODE_ENV === "production") {
   );
 }
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
